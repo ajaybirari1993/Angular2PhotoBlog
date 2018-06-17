@@ -1,0 +1,23 @@
+<h1>{{entry.title}}</h1>
+<figure>
+  <img src="{{entry.photo}}">
+  <figcaption>{{entry.description}}</figcaption>
+</figure>
+
+<div class="actions">
+  <button type="button" [ngClass]="{'liked' : isliked}" (click)="isliked = !isliked">❤</button>
+  <button type="button" (click)="showComment = !showComment">Comments ({{entry.comments.length}})</button>
+</div>
+<div *ngIf="showComment" class="comments">
+  <div class="comment" *ngFor="let comment of entry.comments">
+    <p>
+      <strong>
+        {{comment.name}}
+      </strong>
+      {{comment.comment}}
+    </p>
+  </div>
+  <app-antry-comment-form (onCommentAdded)="onCommentAdded($event)" [entryId]="entry.id"></app-antry-comment-form>
+</div>
+
+

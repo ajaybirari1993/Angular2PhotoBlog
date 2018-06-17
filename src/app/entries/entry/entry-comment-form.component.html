@@ -1,0 +1,41 @@
+<style>
+  .subButton{
+    background-color: #1AA70E;
+    border-width: 1px solid black; 
+  }
+  form textarea{
+    width: 98%;
+    border-radius: 5px;
+  }
+  form input{
+    border-radius: 5px;
+  }
+  form {
+    margin: 1.2em 0;
+  }
+  form div{
+    margin: 1.2em 0;
+  }
+</style>
+<form (submit)="onSubmit()" #commentForm="ngForm" novalidate>
+  <div>
+    <label for="name">Name</label>
+    <input type="text" name="name" [(ngModel)]="name" required minlength="3" #nameField="ngModel"
+    [ngStyle]="{'outline-color' : nameField.valid && nameField.dirty ? 'green':undefined}"/>
+    <div *ngIf="(commentForm.submitted || nameField.dirty || nameField.touched) && nameField.errors" class="alert alert-danger">
+      <div [hidden]="!nameField.errors.required">Name is required</div>
+      <div [hidden]="!nameField.errors.minlength">Length should greater than 3</div>
+    </div>
+  </div>
+  <div>
+    <label for="comment">Comment</label>
+    <textarea name="comment" [(ngModel)]="comment" required minlength="3" #commentField="ngModel"></textarea>
+    <div *ngIf="(commentForm.submitted || commentField.dirty || commentField.touched) && commentField.errors" class="alert alert-danger">
+      <div [hidden]="!commentField.errors.required">Comment is required</div>
+      <div [hidden]="!commentField.errors.minlength">Length should greater than 3</div>
+    </div>
+  </div>
+  <div>
+    <button class="subButton" type="submit">Submit</button>
+  </div>
+</form>
